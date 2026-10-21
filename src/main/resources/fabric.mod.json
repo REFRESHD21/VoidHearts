@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "voidhearts",
+  "version": "${version}",
+  "name": "VoidHearts",
+  "description": "Client-side rendering improvements for high-resolution Minecraft heart texture packs.",
+  "authors": ["REFRESHED21"],
+  "contact": { "sources": "https://github.com/REFRESHD21/VoidHearts" },
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": { "client": ["dev.voidprojects.voidhearts.VoidHeartsClient"] },
+  "depends": { "fabricloader": ">=0.18.0", "minecraft": "~1.21.11", "java": ">=21", "fabric-api": "*" }
+}
