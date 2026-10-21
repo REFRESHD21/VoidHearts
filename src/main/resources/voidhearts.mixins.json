@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.voidprojects.voidhearts.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": ["InGameHudMixin"],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,26 +1,27 @@
 # VoidHearts
 
-Client-side Fabric mod for Minecraft Java Edition 1.21.11. The goal is to make high-resolution heart texture packs look cleaner and more readable in the HUD without replacing the user's art or changing health mechanics.
+A client-side Fabric mod for Minecraft Java **1.21.11** that lets high-resolution heart resource-pack textures render at a larger, configurable HUD size.
 
-## Current status
+## Current implementation
 
-**Prototype / not ready to install.** The repository now has the Fabric project structure and an automated build workflow. The custom HUD rendering implementation and in-game validation are still in progress. Do not treat the current artifact as a finished visual fix.
+- Mixes into Minecraft 1.21.11's `InGameHud.renderHealthBar` so the complete health bar is scaled together; heart spacing, rows, and vanilla heart states stay under vanilla's renderer.
+- Defaults to **1.5x**. Press **H** in-game to cycle through **1x, 1.25x, 1.5x, 1.75x, and 2x**. The key can be rebound in Options → Controls.
+- Saves the chosen scale to `config/voidhearts.properties`.
+- Client-only; no server plugin or server install required.
+- Keeps vanilla's full/half/empty, hardcore, blinking, poison/wither, and absorption sprite selection by letting vanilla draw the sprites.
 
 ## Build
 
-Requires Java 21. Run `gradle build` (or `./gradlew build` after the workflow generates the Gradle wrapper). Output JARs are in `build/libs/`. GitHub Actions uploads build artifacts when the workflow succeeds.
+Requires Java 21 and Gradle 8.14 or compatible.
 
-## Planned behaviour
+```sh
+gradle build
+```
 
-- Improve display of high-resolution heart sprites at HUD scale.
-- Preserve vanilla full, half, empty, hardcore, absorption, and blinking/damage states.
-- Keep the mod client-only and compatible with resource packs.
-- Provide an option to enable/disable the rendering adjustment.
+The remapped mod jar is produced in `build/libs/`. GitHub Actions builds the project and uploads the jars as a workflow artifact.
 
-## Repository
+## Notes
 
-https://github.com/REFRESHD21/VoidHearts
+This changes the rendered size of the vanilla health bar, not the source artwork in your resource pack. A texture pack's quality still depends on its own sprite dimensions and design. Test different sizes with your pack and GUI scale; larger hearts can use more HUD space.
 
-## License
-
-MIT
+Repository: https://github.com/REFRESHD21/VoidHearts
