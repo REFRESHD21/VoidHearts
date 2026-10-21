@@ -1,16 +1,16 @@
 # VoidHearts
 
-A client-side Fabric mod for Minecraft Java **1.21.11** that renders the vanilla heart HUD at a larger configurable size so detailed resource-pack heart art is easier to see.
+A client-side Fabric mod for Minecraft Java **1.21.11** that enlarges the vanilla heart HUD so detailed resource-pack heart art can be seen instead of being squeezed into the tiny default HUD.
 
 ## Features
 
-- **2x default size** for high-resolution heart textures.
-- Press **H** in-game to cycle through **1x, 1.5x, 2x, and 3x**. Rebind the key in Options → Controls.
-- Whole-number scales are included for more consistent pixel-art edges; 1.5x is available if you prefer a smaller HUD.
-- Keeps the health bar's right and bottom edges anchored while scaling, so larger hearts grow left/up rather than directly into the hunger bar.
-- Saves your selection in `config/voidhearts.properties`.
+- **2x default scale** with **1x, 2x, 3x and 4x** options.
+- Press **H** in-game to cycle scales. Rebind the key in **Options → Controls**.
+- Uses **whole-number scaling only**. Fractional scaling can distribute texels unevenly and make fine pixel-art detail look inconsistent.
+- Anchors the health bar's right and bottom edges while scaling to help keep enlarged hearts away from the hunger bar.
+- Saves the selected scale in `config/voidhearts.properties`.
 - Client-only; no server mod is required.
-- Vanilla remains responsible for full, half, empty, hardcore, blinking, status-effect and absorption heart selection.
+- Leaves vanilla responsible for full, half, empty, hardcore, blinking, status-effect and absorption heart selection.
 
 ## Build
 
@@ -24,6 +24,5 @@ The remapped mod jar is produced in `build/libs/`. GitHub Actions builds the pro
 
 ## Important
 
-This scales the vanilla heart HUD; it does not redraw or repair a poorly authored resource-pack texture. If the artwork itself is blurry, check the pack's heart sprites and texture filtering. Larger HUD sizes can still take up more screen space, especially at 3x.
-
-Repository: https://github.com/REFRESHD21/VoidHearts
+VoidHearts enlarges the actual heart draw calls, allowing a high-resolution resource-pack sprite to use more on-screen pixels. It does **not** invent detail that is absent from the pack's source image, and it cannot repair blurry artwork. Try **H** to compare 2x, 3x and 4x with your pack. Higher scales use more HUD space; if a pack's sprite is only 9x9 pixels, it will not gain genuine extra texture detail just by being enlarged.
+ 

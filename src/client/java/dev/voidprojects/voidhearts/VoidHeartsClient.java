@@ -16,10 +16,12 @@ import java.nio.file.Path;
 import java.util.Properties;
 
 public final class VoidHeartsClient implements ClientModInitializer {
-    // Whole-number scales are included because they tend to preserve pixel-art edges most consistently.
-    private static final float[] SCALE_STEPS = {1.0F, 1.5F, 2.0F, 3.0F};
+    // Integer scales avoid fractional pixel coverage, which can make detailed heart art look uneven.
+    private static final float[] SCALE_STEPS = {1.0F, 2.0F, 3.0F, 4.0F};
     private static final float DEFAULT_SCALE = 2.0F;
-    private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("voidhearts.properties");
+    private static final Path CONFIG_PATH = FabricLoader.getInstance()
+            .getConfigDir().resolve("voidhearts.properties");
+
     private static volatile float heartScale = DEFAULT_SCALE;
     private static KeyBinding cycleScaleKey;
 
@@ -67,10 +69,13 @@ public final class VoidHeartsClient implements ClientModInitializer {
         if (!Files.isRegularFile(CONFIG_PATH)) {
             return;
         }
+
         Properties properties = new Properties();
         try (InputStream input = Files.newInputStream(CONFIG_PATH)) {
             properties.load(input);
-            float configured = Float.parseFloat(properties.getProperty("heartScale", Float.toString(DEFAULT_SCALE)));
+            float configured = Float.parseFloat(
+                    properties.getProperty("heartScale", Float.toString(DEFAULT_SCALE))
+            );
             for (float step : SCALE_STEPS) {
                 if (Math.abs(step - configured) < 0.001F) {
                     heartScale = step;
@@ -92,7 +97,7 @@ public final class VoidHeartsClient implements ClientModInitializer {
                 properties.store(output, "VoidHearts client settings");
             }
         } catch (IOException ignored) {
-            // The current session still works if the config cannot be written.
+            // The selected scale remains active for this session if config storage fails.
         }
     }
 
