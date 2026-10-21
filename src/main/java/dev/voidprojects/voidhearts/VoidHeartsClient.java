@@ -1,13 +1,12 @@
 package dev.voidprojects.voidhearts;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.KeyMapping;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
+import net.minecraft.text.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,29 +19,26 @@ public final class VoidHeartsClient implements ClientModInitializer {
     private static final float[] SCALE_STEPS = {1.0F, 1.25F, 1.5F, 1.75F, 2.0F};
     private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("voidhearts.properties");
     private static volatile float heartScale = 1.5F;
-    private static KeyMapping cycleScaleKey;
+    private static KeyBinding cycleScaleKey;
 
     @Override
     public void onInitializeClient() {
         loadConfig();
 
-        KeyMapping.Category category = KeyMapping.Category.register(
-                Identifier.fromNamespaceAndPath("voidhearts", "controls")
-        );
-        cycleScaleKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+        cycleScaleKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.voidhearts.cycle_scale",
-                InputConstants.Type.KEYSYM,
-                InputConstants.KEY_H,
-                category
+                InputUtil.Type.KEYSYM,
+                InputUtil.GLFW_KEY_H,
+                KeyBinding.Category.MISC
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (cycleScaleKey.consumeClick()) {
+            while (cycleScaleKey.wasPressed()) {
                 cycleScale();
                 saveConfig();
                 if (client.player != null) {
-                    client.player.displayClientMessage(
-                            Component.literal("VoidHearts scale: " + formatScale(heartScale)),
+                    client.player.sendMessage(
+                            Text.literal("VoidHearts scale: " + formatScale(heartScale)),
                             true
                     );
                 }
