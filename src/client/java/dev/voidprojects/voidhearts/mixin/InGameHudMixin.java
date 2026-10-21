@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
 abstract class InGameHudMixin {
+    // Keep the right and bottom edges anchored so larger hearts grow away from the hunger bar.
     @Inject(method = "renderHealthBar", at = @At("HEAD"))
     private void voidhearts$scaleHealthBar(
             DrawContext context,
@@ -30,9 +31,9 @@ abstract class InGameHudMixin {
         float scale = VoidHeartsClient.getHeartScale();
         Matrix3x2fStack matrices = context.getMatrices();
         matrices.pushMatrix();
-        matrices.translate((float) x, (float) y);
+        matrices.translate((float) (x + 91), (float) (y + lines * 10));
         matrices.scale(scale, scale);
-        matrices.translate((float) -x, (float) -y);
+        matrices.translate((float) -(x + 91), (float) -(y + lines * 10));
     }
 
     @Inject(method = "renderHealthBar", at = @At("RETURN"))
