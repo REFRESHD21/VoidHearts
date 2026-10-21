@@ -16,9 +16,11 @@ import java.nio.file.Path;
 import java.util.Properties;
 
 public final class VoidHeartsClient implements ClientModInitializer {
-    private static final float[] SCALE_STEPS = {1.0F, 1.25F, 1.5F, 1.75F, 2.0F};
+    // Whole-number scales are included because they tend to preserve pixel-art edges most consistently.
+    private static final float[] SCALE_STEPS = {1.0F, 1.5F, 2.0F, 3.0F};
+    private static final float DEFAULT_SCALE = 2.0F;
     private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("voidhearts.properties");
-    private static volatile float heartScale = 1.5F;
+    private static volatile float heartScale = DEFAULT_SCALE;
     private static KeyBinding cycleScaleKey;
 
     @Override
@@ -51,14 +53,14 @@ public final class VoidHeartsClient implements ClientModInitializer {
     }
 
     private static void cycleScale() {
-        int next = 0;
+        int current = -1;
         for (int i = 0; i < SCALE_STEPS.length; i++) {
             if (Math.abs(SCALE_STEPS[i] - heartScale) < 0.001F) {
-                next = (i + 1) % SCALE_STEPS.length;
+                current = i;
                 break;
             }
         }
-        heartScale = SCALE_STEPS[next];
+        heartScale = SCALE_STEPS[(current + 1) % SCALE_STEPS.length];
     }
 
     private static void loadConfig() {
@@ -68,15 +70,16 @@ public final class VoidHeartsClient implements ClientModInitializer {
         Properties properties = new Properties();
         try (InputStream input = Files.newInputStream(CONFIG_PATH)) {
             properties.load(input);
-            float configured = Float.parseFloat(properties.getProperty("heartScale", "1.5"));
+            float configured = Float.parseFloat(properties.getProperty("heartScale", Float.toString(DEFAULT_SCALE)));
             for (float step : SCALE_STEPS) {
                 if (Math.abs(step - configured) < 0.001F) {
                     heartScale = step;
                     return;
                 }
             }
+            heartScale = DEFAULT_SCALE;
         } catch (IOException | NumberFormatException ignored) {
-            heartScale = 1.5F;
+            heartScale = DEFAULT_SCALE;
         }
     }
 

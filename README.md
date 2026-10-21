@@ -1,14 +1,15 @@
 # VoidHearts
 
-A client-side Fabric mod for Minecraft Java **1.21.11** that lets high-resolution heart resource-pack textures render at a larger, configurable HUD size.
+A client-side Fabric mod for Minecraft Java **1.21.11** that renders the vanilla heart HUD at a larger configurable size so detailed resource-pack heart art is easier to see.
 
-## Current implementation
+## Features
 
-- Mixes into Minecraft 1.21.11's `InGameHud.renderHealthBar` so the complete health bar is scaled together; heart spacing, rows, and vanilla heart states stay under vanilla's renderer.
-- Defaults to **1.5x**. Press **H** in-game to cycle through **1x, 1.25x, 1.5x, 1.75x, and 2x**. The key can be rebound in Options → Controls.
-- Saves the chosen scale to `config/voidhearts.properties`.
-- Client-only; no server plugin or server install required.
-- Keeps vanilla's full/half/empty, hardcore, blinking, poison/wither, and absorption sprite selection by letting vanilla draw the sprites.
+- **2x default size** for high-resolution heart textures.
+- Press **H** in-game to cycle through **1x, 1.5x, 2x, and 3x**. Rebind the key in Options → Controls.
+- Whole-number scales are included for more consistent pixel-art edges; 1.5x is available if you prefer a smaller HUD.
+- Saves your selection in `config/voidhearts.properties`.
+- Client-only; no server mod is required.
+- Vanilla remains responsible for full, half, empty, hardcore, blinking, status-effect and absorption heart selection.
 
 ## Build
 
@@ -20,8 +21,8 @@ gradle build
 
 The remapped mod jar is produced in `build/libs/`. GitHub Actions builds the project and uploads the jars as a workflow artifact.
 
-## Notes
+## Important
 
-This changes the rendered size of the vanilla health bar, not the source artwork in your resource pack. A texture pack's quality still depends on its own sprite dimensions and design. Test different sizes with your pack and GUI scale; larger hearts can use more HUD space.
+This scales the vanilla heart HUD; it does not redraw or repair a poorly authored resource-pack texture. If the artwork itself is blurry, check the pack's heart sprites and texture filtering. Larger HUD sizes can also take up more screen space, especially at 3x.
 
 Repository: https://github.com/REFRESHD21/VoidHearts
