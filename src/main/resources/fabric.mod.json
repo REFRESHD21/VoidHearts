@@ -3,7 +3,7 @@
   "id": "voidhearts",
   "version": "${version}",
   "name": "VoidHearts",
-  "description": "Client-side crisp high-resolution heart HUD rendering for Minecraft 1.21.11.",
+  "description": "Client-side Minecraft 1.21.11 mod focused on fixed-size heart HUD rendering and high-resolution resource-pack compatibility.",
   "authors": ["REFRESHED21"],
   "contact": {
     "sources": "https://github.com/REFRESHD21/VoidHearts"
