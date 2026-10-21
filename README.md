@@ -1,21 +1,26 @@
 # VoidHearts
 
-Client-side Fabric mod for Minecraft Java Edition 1.21.11. Goal: improve how high-resolution heart texture packs appear in the HUD while retaining vanilla health states and animations.
+Client-side Fabric mod for Minecraft Java Edition 1.21.11. The goal is to make high-resolution heart texture packs look cleaner and more readable in the HUD without replacing the user's art or changing health mechanics.
 
-## Status
-Early development scaffold. The initial commit sets up the Fabric project and CI; the custom heart-rendering hook and in-game validation are not yet complete. Do not treat this as a finished rendering fix.
+## Current status
+
+**Prototype / not ready to install.** The repository now has the Fabric project structure and an automated build workflow. The custom HUD rendering implementation and in-game validation are still in progress. Do not treat the current artifact as a finished visual fix.
 
 ## Build
-Requires Java 21. Run `gradle build`; output JARs appear in `build/libs/`. GitHub Actions builds the project and uploads JARs as workflow artifacts.
 
-## Install
-Once validated, install Fabric Loader for Minecraft 1.21.11 and place `voidhearts-*.jar` in `.minecraft/mods`. Client-side only.
+Requires Java 21. Run `gradle build` (or `./gradlew build` after the workflow generates the Gradle wrapper). Output JARs are in `build/libs/`. GitHub Actions uploads build artifacts when the workflow succeeds.
 
-## Goals
-- Crisp high-resolution heart resource-pack textures at normal HUD sizes.
-- Preserve full, half, empty, hardcore, absorption, and animated states.
-- Avoid changing unrelated GUI textures.
+## Planned behaviour
 
-Repository: https://github.com/REFRESHD21/VoidHearts
+- Improve display of high-resolution heart sprites at HUD scale.
+- Preserve vanilla full, half, empty, hardcore, absorption, and blinking/damage states.
+- Keep the mod client-only and compatible with resource packs.
+- Provide an option to enable/disable the rendering adjustment.
 
-License: MIT
+## Repository
+
+https://github.com/REFRESHD21/VoidHearts
+
+## License
+
+MIT
