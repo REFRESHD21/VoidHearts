@@ -24,3 +24,30 @@ gradle build
 ```
 
 The remapped mod jar is produced in `build/libs/`. GitHub Actions builds the project and uploads jars as a workflow artifact.
+
+
+## High-density HUD heart textures (prototype)
+
+The client mixin redirects the 1.21.11 heart texture lookup and keeps Minecraft's
+normal heart placement and 9x9 GUI-unit destination size. Optional mod textures
+are loaded from:
+
+`assets/voidhearts/textures/gui/heart/<density>x/<type>_<state>.png`
+
+The generated config file is `config/voidhearts.properties`:
+
+```properties
+density=4
+```
+
+Supported source tiers are `1`, `2`, `4`, and `8`. For example,
+`assets/voidhearts/textures/gui/heart/4x/normal_full.png` is the regular
+full-heart sprite at the 4x source-art tier. The suffixes are `full`, `half`,
+`container`, `full_blinking`, `half_blinking`, `hardcore_full`, and
+`hardcore_half`. The type prefix is one of `normal`, `container`,
+`poisoned`, `withered`, `absorbing`, or `frozen`.
+
+Missing custom sprites automatically fall back to the vanilla texture. This
+setting chooses which source-art resolution tier to load; it does not create
+additional physical display pixels beyond the monitor resolution and Minecraft
+GUI scale. Custom heart artwork is not bundled in this prototype yet.
