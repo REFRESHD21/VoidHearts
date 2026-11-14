@@ -23,7 +23,7 @@ abstract class InGameHudMixin {
         boolean half,
         boolean blinking
     ) {
-        Identifier vanilla = ((InGameHud.HeartTypeAccessor) (Object) heartType)
+        Identifier vanilla = ((HeartTypeAccessor) heartType)
             .voidhearts$getTexture(hardcore, half, blinking);
         return HeartTextureResolver.resolve(heartType, hardcore, half, blinking, vanilla);
     }
